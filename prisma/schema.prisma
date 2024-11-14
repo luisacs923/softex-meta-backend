@@ -1,0 +1,122 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Colaborador {
+  id                   Int                   @id @default(autoincrement())
+  nome                 String
+  cpf                  String
+  cbo                  String
+  entregaEpi           EntregaEpi[]
+  contrato_colaborador ContratoColaborador[]
+}
+
+model Servico {
+  id             Int             @id @default(autoincrement())
+  nome           String
+  categoria      String
+  contrato_geral ContratoGeral[]
+}
+
+model Prestador {
+  id             Int             @id @default(autoincrement())
+  nome           String
+  cnpj           String
+  endereco       String
+  telefone       String
+  email          String
+  contrato_geral ContratoGeral[]
+}
+
+model Cliente {
+  id             Int             @id @default(autoincrement())
+  nome           String
+  cnpj           String
+  endereco       String
+  telefone       String
+  email          String
+  contrato_geral ContratoGeral[]
+}
+
+model Material {
+  id                Int                @id @default(autoincrement())
+  nome              String
+  categoria         String
+  unidade_medida    String
+  quantidade_minima Float
+  quantidade_atual  Float
+  material_contrato MaterialContrato[]
+}
+
+model EPI {
+  id                Int          @id @default(autoincrement())
+  nome              String
+  categoria         String
+  ca                String
+  tipo              String
+  quantidade_minima Float
+  quantidade_atual  Float
+  entregaEpi        EntregaEpi[]
+}
+
+model EntregaEpi {
+  id             Int         @id @default(autoincrement())
+  data_entrega   DateTime
+  data_devolucao DateTime?
+  observacao     String
+  epi            EPI         @relation(fields: [id_epi], references: [id])
+  id_epi         Int
+  colaborador    Colaborador @relation(fields: [id_colaborador], references: [id])
+  id_colaborador Int
+}
+
+model ContratoGeral {
+  id                   Int                   @id @default(autoincrement())
+  descricao_servico    String
+  responsavel          String
+  data_inicio          DateTime
+  data_fim             DateTime
+  valor                Float
+  prestador            Prestador             @relation(fields: [id_prestador], references: [id])
+  id_prestador         Int
+  cliente              Cliente               @relation(fields: [id_cliente], references: [id])
+  id_cliente           Int
+  servico              Servico               @relation(fields: [id_servico], references: [id])
+  id_servico           Int
+  contrato_colaborador ContratoColaborador[]
+  material_contrato    MaterialContrato[]
+}
+
+model ContratoColaborador {
+  id                Int           @id @default(autoincrement())
+  data_inicio       DateTime
+  data_fim          DateTime
+  quantidade_horas  Float
+  valor_hora        Float
+  contrato_geral    ContratoGeral @relation(fields: [id_contrato_geral], references: [id])
+  id_contrato_geral Int
+  colaborador       Colaborador   @relation(fields: [id_colaborador], references: [id])
+  id_colaborador    Int
+}
+
+model MaterialContrato {
+  id                    Int           @id @default(autoincrement())
+  quantidade_solicitada Float
+  quantidade_utilizada  Float?
+  quantidade_devolvida  Float?
+  data_entrega          DateTime
+  data_devolucao        DateTime?
+  observacao            String
+  contrato_geral        ContratoGeral @relation(fields: [id_contrato_geral], references: [id])
+  id_contrato_geral     Int
+  material              Material      @relation(fields: [id_material], references: [id])
+  id_material           Int
+}
