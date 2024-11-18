@@ -1,0 +1,23 @@
+GET http://localhost:3000/colaborador 
+###
+GET http://localhost:3000/colaborador/1
+###
+POST http://localhost:3000/colaborador/
+Content-Type: application/json
+
+{
+    "nome" : "Colaborador Novo",
+    "cpf" : "999.999.999-99",
+    "cbo": "Operário"
+}
+###
+DELETE http://localhost:3000/colaborador/2
+###
+PUT http://localhost:3000/colaborador/1
+Content-Type: application/json
+
+{
+    "nome" : "Primeiro Colaborador",
+    "cpf" : "123.456.789-00",
+    "cbo": "Industrial"
+}

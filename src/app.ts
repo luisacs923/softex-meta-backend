@@ -1,17 +1,16 @@
 import express from 'express';
 import AdminJS from 'adminjs';
+import bodyParser from 'body-parser';
 import { buildAuthenticatedRouter } from '@adminjs/express';
 
+import ColaboradorController from './controllers/colaborador.js';
 import provider from './admin/auth-provider.js';
 import options from './admin/options.js';
-import initializeDb from './db/index.js';
 
 const port = process.env.PORT || 3000;
 
 const start = async () => {
   const app = express();
-
-  await initializeDb();
 
   const admin = new AdminJS(options);
 
@@ -37,7 +36,8 @@ const start = async () => {
   );
 
   app.use(admin.options.rootPath, router);
-
+  app.use(bodyParser.json());
+  app.use('/colaborador', ColaboradorController);
   app.listen(port, () => {
     console.log(`AdminJS available at http://localhost:${port}${admin.options.rootPath}`);
   });
