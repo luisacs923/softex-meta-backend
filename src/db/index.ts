@@ -6,6 +6,4 @@ const prisma = new PrismaClient();
 
 AdminJS.registerAdapter({ Database, Resource });
 
-const initialize = async () => ({ prisma });
-
-export default initialize;
+export default prisma;
