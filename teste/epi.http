@@ -1,0 +1,29 @@
+GET http://localhost:3000/epi
+###
+GET http://localhost:3000/epi/1
+###
+POST http://localhost:3000/epi/
+Content-Type: application/json
+
+{
+    "nome" : "Epi Novo",
+    "categoria" : "Categoria Nova",
+    "ca" : "CA Novo",
+    "tipo" : "Tipo Novo",
+    "qtdMinima" : 10,
+    "qtdAtual" : 350
+}
+###
+DELETE http://localhost:3000/epi/2
+###
+PUT http://localhost:3000/epi/1
+Content-Type: application/json
+
+{
+    "nome" : "Máscara de proteção",
+    "categoria" : "Proteção facial",
+    "ca" : "243890",
+    "tipo" : "Descartável",
+    "qtdMinima" : 5,
+    "qtdAtual" : 17
+}
