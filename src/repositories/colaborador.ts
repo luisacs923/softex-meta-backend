@@ -9,6 +9,10 @@ export default class ColaboradorRepository {
     return prisma.colaborador.findMany({ where: { nome } });
   }
 
+  static async getByCbo(cbo: string) {
+    return prisma.colaborador.findMany({ where: { cbo } });
+  }
+
   static async getAll() {
     return prisma.colaborador.findMany();
   }
