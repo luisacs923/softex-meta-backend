@@ -50,7 +50,8 @@ export default class EpiRepository {
   }) {
     return prisma.ePI.update({
       where: {
-        id: epi.id,
+        // eslint-disable-next-line comma-dangle
+        id: epi.id
       },
       data: {
         nome: epi.nome,
