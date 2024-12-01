@@ -1,0 +1,29 @@
+GET http://localhost:3000/material 
+###
+GET http://localhost:3000/material/1
+###
+POST http://localhost:3000/material/
+Content-Type: application/json
+
+{
+    "nome" : "Material Novo",
+    "categoria" : "EPI",
+    "unidade_medida": "um par",
+    "quantidade_minima": 1,
+    "quantidade_atual": 3
+    
+    
+}
+###
+DELETE http://localhost:3000/material/2
+###
+PUT http://localhost:3000/material/1
+Content-Type: application/json
+
+{
+    "nome" : "Capacete",
+    "categoria" : "EPI",
+    "unidade_medida": "um par",
+    "quantidade_minima": 10,
+    "quantidade_atual": 15
+}
