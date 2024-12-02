@@ -6,7 +6,7 @@
     "build": "tsc",
     "lint": "eslint src --ext .ts --fix",
     "start": "dotenv -c '.env' -- node dist/app",
-    "dev": "tsx watch src/app.ts"
+    "dev": "dotenv -c '.env' -- tsx watch src/app.ts"
   },
   "dependencies": {
     "@adminjs/express": "^6.1.0",
