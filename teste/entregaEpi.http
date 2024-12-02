@@ -1,0 +1,27 @@
+GET http://localhost:3000/entregaEpi
+###
+GET http://localhost:3000/entregaEpi/1
+###
+POST http://localhost:3000/entregaEpi/
+Content-Type: application/json
+
+{
+    "data_entrega": "2024-12-01T19:10:00Z" ,
+    "data_devolucao": null,
+    "observacao": "Entregue a Fulano",
+    "id_epi": 1,
+    "id_colaborador": 2
+}
+###
+DELETE http://localhost:3000/entregaEpi/2
+###
+PUT http://localhost:3000/entregaEpi/1
+Content-Type: application/json
+
+{
+    "data_entrega": "2024-12-02T18:00:00Z" ,
+    "data_devolucao": null,
+    "observacao": "Entregue a Ciclano",
+    "id_epi": 1,
+    "id_colaborador": 1
+}
