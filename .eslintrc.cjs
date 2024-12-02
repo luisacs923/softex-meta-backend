@@ -11,6 +11,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', 'tsx'] }],
     indent: ['error', 2],
     'max-len': ['error', 120],
     'linebreak-style': ['error', 'windows'],
