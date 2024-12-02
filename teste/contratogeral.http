@@ -1,0 +1,34 @@
+GET http://localhost:3000/contrato-geral 
+###
+GET http://localhost:3000/contrato-geral/1
+###
+GET http://localhost:3000/contrato-geral/responsavel/Ricardo%20Chaves%20Jr
+
+###
+POST http://localhost:3000/contrato-geral
+Content-Type: application/json
+
+{
+    "descricao_servico" : "Manutenção da Rede Elétrica",
+    "responsavel" : "Fernando Jorge",
+    "data_inicio" : "2024-12-03T10:30:00.000Z",
+    "data_fim" : "2024-12-13T10:30:00.000Z",
+    "valor" : 100000.00,
+    "prestadorId" : 1,
+    "clienteId" : 2,
+    "servicoId" : 3
+   
+}
+
+###
+DELETE http://localhost:3000/contrato-geral/2
+
+###
+PUT http://localhost:3000/contrato-geral/1
+Content-Type: application/json
+
+{
+    "descricao_servico" : "Manutenção da Rede Elétrica",
+    "responsavel" : "Ricardo Chaves Jr",
+    "valor": 120000.00
+}
