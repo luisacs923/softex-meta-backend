@@ -9,7 +9,7 @@ export default class ContratoGeralRepository {
     valor: number,
     prestadorId: number,
     clienteId: number,
-    servicoId: number
+    servicoId: number,
   ) {
     return prisma.contratoGeral.create({
       data: {

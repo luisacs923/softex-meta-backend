@@ -1,11 +1,11 @@
-GET http://localhost:3000/contratogeral 
+GET http://localhost:3000/contrato-geral 
 ###
-GET http://localhost:3000/contratogeral/1
+GET http://localhost:3000/contrato-geral/1
 ###
-GET http://localhost:3000/contratogeral/Ricardo%20Chaves
+GET http://localhost:3000/contrato-geral/responsavel/Ricardo%20Chaves
 
 ###
-POST http://localhost:3000/contratogeral
+POST http://localhost:3000/contrato-geral
 Content-Type: application/json
 
 {
@@ -21,10 +21,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/contratogeral/4
+DELETE http://localhost:3000/contrato-geral/4
 
 ###
-PUT http://localhost:3000/contratogeral/4
+PUT http://localhost:3000/contrato-geral/4
 Content-Type: application/json
 
 {

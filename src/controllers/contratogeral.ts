@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Router } from 'express';
 import ContratoGeralService from 'src/services/contratogeral.js';
 
@@ -5,8 +6,9 @@ const router = Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { descricao_servico, responsavel, data_inicio, data_fim, valor, prestadorId, clienteId, servicoId } =
-      req.body;
+    const {
+      descricao_servico, responsavel, data_inicio, data_fim, valor, prestadorId, clienteId, servicoId,
+    } = req.body;
 
     const contratogeral = await ContratoGeralService.insert(
       descricao_servico,
@@ -16,7 +18,7 @@ router.post('/', async (req, res) => {
       valor,
       prestadorId,
       clienteId,
-      servicoId
+      servicoId,
     );
     res.status(201).json(contratogeral);
   } catch (error) {
@@ -25,7 +27,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/:responsavel', async (req, res) => {
+router.get('/responsavel/:responsavel', async (req, res) => {
   try {
     const { responsavel } = req.params;
 
