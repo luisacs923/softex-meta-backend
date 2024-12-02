@@ -21,10 +21,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/contrato-geral/4
+DELETE http://localhost:3000/contrato-geral/2
 
 ###
-PUT http://localhost:3000/contrato-geral/4
+PUT http://localhost:3000/contrato-geral/1
 Content-Type: application/json
 
 {
