@@ -53,4 +53,9 @@ export default class EpiService {
     });
     return epi;
   }
+
+  static async checarQuantidadeMinima() {
+    const epis = await EpiRepository.checarQuantidadeMinima();
+    return epis;
+  }
 }

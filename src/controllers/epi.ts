@@ -33,6 +33,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/quantidade-minima/', async (req, res) => {
+  try {
+    const epis = await EpiService.checarQuantidadeMinima();
+    res.json(epis);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
