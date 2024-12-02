@@ -1,0 +1,27 @@
+GET http://localhost:3000/cliente 
+###
+GET http://localhost:3000/cliente/1
+###
+POST http://localhost:3000/cliente/
+Content-Type: application/json
+
+{
+    "nome": "Novo Cliente", 
+    "cnpj": "00.000.000/0000-00", 
+    "endereco": "Rua, numero, bairro", 
+    "telefone": "(00) 90000-0000", 
+    "email": "email@email.com"
+}
+###
+DELETE http://localhost:3000/cliente/2
+###
+PUT http://localhost:3000/cliente/1
+Content-Type: application/json
+
+{
+    "nome": "Primeiro Cliente", 
+    "cnpj": "12.345.678/0001-42", 
+    "endereco": "Rua Tal, numero 1", 
+    "telefone": "(81) 98765-4321", 
+    "email": "johndoe@meta.com"
+}

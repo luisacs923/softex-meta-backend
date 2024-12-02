@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Router } from 'express';
 import ClienteService from 'src/services/cliente.js';
 
@@ -56,6 +57,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: error });
   }
 });
+
 router.put('/:id', async (req, res) => {
   try {
     const {
