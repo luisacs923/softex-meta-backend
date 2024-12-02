@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable camelcase */
 import { Router } from 'express';
 import ContratoColaboradorService from 'src/services/contratoColaborador.js';
@@ -46,13 +47,16 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
-      res.status(400).json({ message: 'Id inválido!' });
+      return res.status(400).json({ message: 'Id inválido!' });
     }
     const contratoColaborador = await ContratoColaboradorService.getById(_id);
-    res.json(contratoColaborador);
+    if (!contratoColaborador) {
+      return res.status(404).send();
+    }
+    return res.json(contratoColaborador);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 });
 
@@ -61,13 +65,13 @@ router.get('/colaborador/:id', async (req, res) => {
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
-      res.status(400).json({ message: 'Id inválido!' });
+      return res.status(400).json({ message: 'Id inválido!' });
     }
     const contratosColaborador = await ContratoColaboradorService.getByColaborador(_id);
-    res.json(contratosColaborador);
+    return res.json(contratosColaborador);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 });
 
@@ -76,13 +80,13 @@ router.get('/contract/:id', async (req, res) => {
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
-      res.status(400).json({ message: 'Id inválido!' });
+      return res.status(400).json({ message: 'Id inválido!' });
     }
     const contratoColaboradores = await ContratoColaboradorService.getByContract(_id);
-    res.json(contratoColaboradores);
+    return res.json(contratoColaboradores);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 });
 
@@ -91,13 +95,13 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
-      res.status(400).json({ message: 'Id inválido!' });
+      return res.status(400).json({ message: 'Id inválido!' });
     }
     await ContratoColaboradorService.deleteById(_id);
-    res.status(204).send();
+    return res.status(204).send();
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 });
 
@@ -116,7 +120,7 @@ router.put('/:id', async (req, res) => {
     const _data_inicio = new Date(data_inicio);
     const _data_fim = new Date(data_fim);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
-      res.status(400).json({ message: 'Id inválido!' });
+      return res.status(400).json({ message: 'Id inválido!' });
     }
     const contratoColaborador = await ContratoColaboradorService.update(
       _id,
@@ -127,10 +131,10 @@ router.put('/:id', async (req, res) => {
       id_colaborador,
       id_contrato_geral,
     );
-    res.json(contratoColaborador);
+    return res.json(contratoColaborador);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 });
 
