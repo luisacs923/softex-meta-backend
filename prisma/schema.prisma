@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,8 +12,8 @@ model Colaborador {
   nome                 String
   cpf                  String
   cbo                  String
-  entregaEpi           EntregaEpi[]
   contrato_colaborador ContratoColaborador[]
+  entregaEpi           EntregaEpi[]
 }
 
 model Servico {
@@ -57,14 +54,14 @@ model Material {
 }
 
 model EPI {
-  id                Int          @id @default(autoincrement())
-  nome              String
-  categoria         String
-  ca                String
-  tipo              String
-  quantidade_minima Float
-  quantidade_atual  Float
-  entregaEpi        EntregaEpi[]
+  id         Int          @id @default(autoincrement())
+  nome       String
+  categoria  String
+  ca         String
+  tipo       String
+  qtdMinima  Int
+  qtdAtual   Int
+  entregaEpi EntregaEpi[]
 }
 
 model EntregaEpi {
@@ -72,10 +69,10 @@ model EntregaEpi {
   data_entrega   DateTime
   data_devolucao DateTime?
   observacao     String
-  epi            EPI         @relation(fields: [id_epi], references: [id])
   id_epi         Int
-  colaborador    Colaborador @relation(fields: [id_colaborador], references: [id])
   id_colaborador Int
+  colaborador    Colaborador @relation(fields: [id_colaborador], references: [id])
+  epi            EPI         @relation(fields: [id_epi], references: [id])
 }
 
 model ContratoGeral {
@@ -85,13 +82,13 @@ model ContratoGeral {
   data_inicio          DateTime
   data_fim             DateTime
   valor                Float
-  prestador            Prestador             @relation(fields: [id_prestador], references: [id])
   id_prestador         Int
-  cliente              Cliente               @relation(fields: [id_cliente], references: [id])
   id_cliente           Int
-  servico              Servico               @relation(fields: [id_servico], references: [id])
   id_servico           Int
   contrato_colaborador ContratoColaborador[]
+  servico              Servico               @relation(fields: [id_servico], references: [id])
+  cliente              Cliente               @relation(fields: [id_cliente], references: [id])
+  prestador            Prestador             @relation(fields: [id_prestador], references: [id])
   material_contrato    MaterialContrato[]
 }
 
@@ -101,10 +98,10 @@ model ContratoColaborador {
   data_fim          DateTime
   quantidade_horas  Float
   valor_hora        Float
-  contrato_geral    ContratoGeral @relation(fields: [id_contrato_geral], references: [id])
   id_contrato_geral Int
-  colaborador       Colaborador   @relation(fields: [id_colaborador], references: [id])
   id_colaborador    Int
+  colaborador       Colaborador   @relation(fields: [id_colaborador], references: [id])
+  contrato_geral    ContratoGeral @relation(fields: [id_contrato_geral], references: [id])
 }
 
 model MaterialContrato {
@@ -115,8 +112,8 @@ model MaterialContrato {
   data_entrega          DateTime
   data_devolucao        DateTime?
   observacao            String
-  contrato_geral        ContratoGeral @relation(fields: [id_contrato_geral], references: [id])
   id_contrato_geral     Int
-  material              Material      @relation(fields: [id_material], references: [id])
   id_material           Int
+  material              Material      @relation(fields: [id_material], references: [id])
+  contrato_geral        ContratoGeral @relation(fields: [id_contrato_geral], references: [id])
 }

@@ -1,15 +1,17 @@
 /* eslint-disable no-console */
 import { Router } from 'express';
-import ColaboradorService from 'src/services/colaborador.js';
+import ClienteService from 'src/services/cliente.js';
 
 const router = Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { nome, cpf, cbo } = req.body;
+    const {
+      nome, cnpj, endereco, telefone, email,
+    } = req.body;
 
-    const colaborador = await ColaboradorService.insert(nome, cpf, cbo);
-    res.status(201).json(colaborador);
+    const cliente = await ClienteService.insert(nome, cnpj, endereco, telefone, email);
+    res.status(201).json(cliente);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -18,8 +20,8 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const colaboradores = await ColaboradorService.getAll();
-    res.json(colaboradores);
+    const clientes = await ClienteService.getAll();
+    res.json(clientes);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -31,13 +33,13 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
-      res.status(400).json({ message: 'Id inválido!' });
+      res.status(400).json({ message: 'Id inválido!' });
     }
-    const colaborador = await ColaboradorService.getById(_id);
-    if (!colaborador) {
+    const cliente = await ClienteService.getById(_id);
+    if (!cliente) {
       res.status(404).send();
     } else {
-      res.json(colaborador);
+      res.json(cliente);
     }
   } catch (error) {
     console.log(error);
@@ -50,9 +52,9 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
-      res.status(400).json({ message: 'Id inválido!' });
+      res.status(400).json({ message: 'Id inválido!' });
     }
-    await ColaboradorService.delete(_id);
+    await ClienteService.delete(_id);
     res.status(204).send();
   } catch (error) {
     console.log(error);
@@ -62,14 +64,17 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const { nome, cpf, cbo } = req.body;
+    const {
+      nome, cnpj, endereco, telefone, email,
+    } = req.body;
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
-      res.status(400).json({ message: 'Id inválido!' });
+      res.status(400).json({ message: 'Id inválido!' });
     }
-    const colaborador = await ColaboradorService.update(_id, nome, cpf, cbo);
-    res.json(colaborador);
+
+    const cliente = await ClienteService.update(_id, nome, cnpj, endereco, telefone, email);
+    res.json(cliente);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });

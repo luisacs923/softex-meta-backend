@@ -1,15 +1,13 @@
 /* eslint-disable no-console */
 import { Router } from 'express';
-import ColaboradorService from 'src/services/colaborador.js';
+import ServicoService from 'src/services/servico.js';
 
 const router = Router();
-
 router.post('/', async (req, res) => {
   try {
-    const { nome, cpf, cbo } = req.body;
-
-    const colaborador = await ColaboradorService.insert(nome, cpf, cbo);
-    res.status(201).json(colaborador);
+    const { nome, categoria } = req.body;
+    const servico = await ServicoService.insert(nome, categoria);
+    res.status(201).json(servico);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -18,8 +16,8 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const colaboradores = await ColaboradorService.getAll();
-    res.json(colaboradores);
+    const servico = await ServicoService.getAll();
+    res.json(servico);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -33,11 +31,11 @@ router.get('/:id', async (req, res) => {
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       res.status(400).json({ message: 'Id inválido!' });
     }
-    const colaborador = await ColaboradorService.getById(_id);
-    if (!colaborador) {
+    const servico = await ServicoService.getById(_id);
+    if (!servico) {
       res.status(404).send();
     } else {
-      res.json(colaborador);
+      res.json(servico);
     }
   } catch (error) {
     console.log(error);
@@ -52,7 +50,7 @@ router.delete('/:id', async (req, res) => {
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       res.status(400).json({ message: 'Id inválido!' });
     }
-    await ColaboradorService.delete(_id);
+    await ServicoService.delete(_id);
     res.status(204).send();
   } catch (error) {
     console.log(error);
@@ -62,14 +60,14 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const { nome, cpf, cbo } = req.body;
+    const { nome, categoria } = req.body;
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       res.status(400).json({ message: 'Id inválido!' });
     }
-    const colaborador = await ColaboradorService.update(_id, nome, cpf, cbo);
-    res.json(colaborador);
+    const servico = await ServicoService.update(_id, nome, categoria);
+    res.json(servico);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
