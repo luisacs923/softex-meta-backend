@@ -1,0 +1,27 @@
+GET http://localhost:3000/prestador
+###
+GET http://localhost:3000/prestador/1
+###
+POST http://localhost:3000/prestador/
+Content-Type: application/json
+
+{
+    "nome" : "Meta Industrial Service",
+    "cnpj" : "999.999.999-99",
+    "endereco": "Rua Meta, 123, Mogi Guaçu, SP",
+    "telefone": "+55(11)9 9999 9999",
+    "email": "meta@email.com"
+}
+###
+DELETE http://localhost:3000/prestador/2
+###
+PUT http://localhost:3000/prestador/1
+Content-Type: application/json
+
+{
+    "nome" : "Meta - Serviços de Manutenção",
+    "cnpj" : "999.999.999-99",
+    "endereco": "Rua Meta, 123, Mogi Guaçu, SP",
+    "telefone": "+55(11)9 9999 9999",
+    "email": "meta@email.com"
+}

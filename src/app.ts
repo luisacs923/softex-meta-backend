@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import { buildAuthenticatedRouter } from '@adminjs/express';
 
 import ColaboradorController from './controllers/colaborador.js';
+import PrestadorController from './controllers/prestador.js';
 import ServicoController from './controllers/servico.js';
 import MaterialController from './controllers/material.js';
 import EpiController from './controllers/epi.js';
@@ -42,6 +43,7 @@ const start = async () => {
   app.use(admin.options.rootPath, router);
   app.use(bodyParser.json());
   app.use('/colaborador', ColaboradorController);
+  app.use('/prestador', PrestadorController);
   app.use('/servico', ServicoController);
   app.use('/material', MaterialController);
   app.use('/epi', EpiController);
