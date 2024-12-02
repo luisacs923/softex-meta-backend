@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import { buildAuthenticatedRouter } from '@adminjs/express';
 
 import ColaboradorController from './controllers/colaborador.js';
+import ContratoColaboradorController from './controllers/contratoColaborador.js';
 import provider from './admin/auth-provider.js';
 import options from './admin/options.js';
 
@@ -38,6 +39,7 @@ const start = async () => {
   app.use(admin.options.rootPath, router);
   app.use(bodyParser.json());
   app.use('/colaborador', ColaboradorController);
+  app.use('/contrato-colaborador', ContratoColaboradorController);
   app.listen(port, () => {
     console.log(`AdminJS available at http://localhost:${port}${admin.options.rootPath}`);
   });

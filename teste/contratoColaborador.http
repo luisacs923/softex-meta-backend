@@ -1,0 +1,33 @@
+GET http://localhost:3000/contrato-colaborador 
+###
+GET http://localhost:3000/contrato-colaborador/1
+###
+GET http://localhost:3000/contrato-colaborador/colaborador/1
+###
+GET http://localhost:3000/contrato-colaborador/contract/1
+###
+POST http://localhost:3000/contrato-colaborador/
+Content-Type: application/json
+
+{
+    "data_inicio" : "2024/11/13",
+    "data_fim" : "2024/11/24",
+    "quantidade_horas": 18,
+    "valor_hora": 30,
+    "id_colaborador": 1,
+    "id_contrato_geral": 1
+}
+###
+DELETE http://localhost:3000/contrato-colaborador/2
+###
+PUT http://localhost:3000/contrato-colaborador/1
+Content-Type: application/json
+
+{
+    "data_inicio" : "2024/12/01",
+    "data_fim" : "2024/12/31",
+    "quantidade_horas": 36,
+    "valor_hora": 30,
+    "id_colaborador": 1,
+    "id_contrato_geral": 1
+}
