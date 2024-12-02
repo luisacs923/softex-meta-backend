@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable camelcase */
 /* eslint-disable comma-dangle */
 import { Router } from 'express';
@@ -41,7 +42,11 @@ router.get('/:id', async (req, res) => {
       res.status(400).json({ message: 'Id inválido!' });
     }
     const entregaEpi = await EntregaEpiService.getById(_id);
-    res.json(entregaEpi);
+    if (!entregaEpi) {
+      res.status(404).send();
+    } else {
+      res.json(entregaEpi);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });

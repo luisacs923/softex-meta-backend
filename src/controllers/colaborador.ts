@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Router } from 'express';
 import ColaboradorService from 'src/services/colaborador.js';
 
@@ -33,7 +34,11 @@ router.get('/:id', async (req, res) => {
       res.status(400).json({ message: 'Id inválido!' });
     }
     const colaborador = await ColaboradorService.getById(_id);
-    res.json(colaborador);
+    if (!colaborador) {
+      res.status(404).send();
+    } else {
+      res.json(colaborador);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
