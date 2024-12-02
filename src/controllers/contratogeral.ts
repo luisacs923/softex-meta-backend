@@ -1,32 +1,56 @@
 /* eslint-disable no-console */
 import { Router } from 'express';
-import EpiService from 'src/services/epi.js';
+import ContratoGeralService from 'src/services/contratogeral.js';
 
 const router = Router();
 
 router.post('/', async (req, res) => {
   try {
     const {
-      nome,
-      categoria,
-      ca,
-      tipo,
-      qtdMinima,
-      qtdAtual,
+      descricao_servico, responsavel, data_inicio, data_fim, valor, prestadorId, clienteId, servicoId,
     } = req.body;
 
-    const epi = await EpiService.insert(nome, categoria, ca, tipo, qtdMinima, qtdAtual);
-    res.status(201).json(epi);
+    const contratogeral = await ContratoGeralService.insert(
+      descricao_servico,
+      responsavel,
+      data_inicio,
+      data_fim,
+      valor,
+      prestadorId,
+      clienteId,
+      servicoId,
+    );
+    res.status(201).json(contratogeral);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error });
+  }
+});
+
+router.get('/responsavel/:responsavel', async (req, res) => {
+  try {
+    const { responsavel } = req.params;
+
+    if (!responsavel || responsavel.trim() === '') {
+      return res.status(400).json({ message: 'Campo de string inválido!' });
+    }
+    const contratogeral = await ContratoGeralService.getByResponsavel(responsavel);
+
+    if (!contratogeral) {
+      return res.status(404).json({ message: 'Não encontrado!' });
+    }
+
+    return res.json(contratogeral);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 });
 
 router.get('/', async (req, res) => {
   try {
-    const epis = await EpiService.getAll();
-    res.json(epis);
+    const contratogeral = await ContratoGeralService.getAll();
+    res.json(contratogeral);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -40,11 +64,11 @@ router.get('/:id', async (req, res) => {
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       return res.status(400).json({ message: 'Id inválido!' });
     }
-    const epi = await EpiService.getById(_id);
-    if (!epi) {
+    const contratogeral = await ContratoGeralService.getById(_id);
+    if (!contratogeral) {
       return res.status(404).send();
     }
-    return res.json(epi);
+    return res.json(contratogeral);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error });
@@ -58,7 +82,7 @@ router.delete('/:id', async (req, res) => {
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       return res.status(400).json({ message: 'Id inválido!' });
     }
-    await EpiService.delete(_id);
+    await ContratoGeralService.deleteById(_id);
     return res.status(204).send();
   } catch (error) {
     console.log(error);
@@ -68,21 +92,14 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const {
-      nome,
-      categoria,
-      ca,
-      tipo,
-      qtdMinima,
-      qtdAtual,
-    } = req.body;
+    const { descricao_servico, responsavel, valor } = req.body;
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       return res.status(400).json({ message: 'Id inválido!' });
     }
-    const epi = await EpiService.update(_id, nome, categoria, ca, tipo, qtdMinima, qtdAtual);
-    return res.json(epi);
+    const contratogeral = await ContratoGeralService.update(_id, descricao_servico, responsavel, valor);
+    return res.json(contratogeral);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error });

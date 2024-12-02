@@ -5,6 +5,7 @@ import { buildAuthenticatedRouter } from '@adminjs/express';
 
 import ColaboradorController from './controllers/colaborador.js';
 import ContratoColaboradorController from './controllers/contratoColaborador.js';
+import ContratoGeralController from './controllers/contratogeral.js';
 import PrestadorController from './controllers/prestador.js';
 import ServicoController from './controllers/servico.js';
 import MaterialController from './controllers/material.js';
@@ -46,6 +47,7 @@ const start = async () => {
   app.use(bodyParser.json());
   app.use('/colaborador', ColaboradorController);
   app.use('/contrato-colaborador', ContratoColaboradorController);
+  app.use('/contrato-geral', ContratoGeralController);
   app.use('/prestador', PrestadorController);
   app.use('/servico', ServicoController);
   app.use('/material', MaterialController);

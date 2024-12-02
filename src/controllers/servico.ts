@@ -29,17 +29,16 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
-      res.status(400).json({ message: 'Id inválido!' });
+      return res.status(400).json({ message: 'Id inválido!' });
     }
     const servico = await ServicoService.getById(_id);
     if (!servico) {
-      res.status(404).send();
-    } else {
-      res.json(servico);
+      return res.status(404).send();
     }
+    return res.json(servico);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 });
 
@@ -48,13 +47,13 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
-      res.status(400).json({ message: 'Id inválido!' });
+      return res.status(400).json({ message: 'Id inválido!' });
     }
     await ServicoService.delete(_id);
-    res.status(204).send();
+    return res.status(204).send();
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 });
 
@@ -64,13 +63,13 @@ router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
-      res.status(400).json({ message: 'Id inválido!' });
+      return res.status(400).json({ message: 'Id inválido!' });
     }
     const servico = await ServicoService.update(_id, nome, categoria);
-    res.json(servico);
+    return res.json(servico);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 });
 
