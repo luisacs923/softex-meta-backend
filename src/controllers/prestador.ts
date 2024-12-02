@@ -1,22 +1,17 @@
 /* eslint-disable no-console */
 import { Router } from 'express';
-import EpiService from 'src/services/epi.js';
+import PrestadorService from 'src/services/prestador.js';
 
 const router = Router();
 
 router.post('/', async (req, res) => {
   try {
     const {
-      nome,
-      categoria,
-      ca,
-      tipo,
-      qtdMinima,
-      qtdAtual,
+      nome, cnpj, endereco, telefone, email,
     } = req.body;
 
-    const epi = await EpiService.insert(nome, categoria, ca, tipo, qtdMinima, qtdAtual);
-    res.status(201).json(epi);
+    const prestador = await PrestadorService.insert(nome, cnpj, endereco, telefone, email);
+    res.status(201).json(prestador);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -25,8 +20,8 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const epis = await EpiService.getAll();
-    res.json(epis);
+    const prestadores = await PrestadorService.getAll();
+    res.json(prestadores);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -40,12 +35,24 @@ router.get('/:id', async (req, res) => {
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       res.status(400).json({ message: 'Id inválido!' });
     }
-    const epi = await EpiService.getById(_id);
-    if (!epi) {
+    const prestador = await PrestadorService.getById(_id);
+    if (!prestador) {
       res.status(404).send();
     } else {
-      res.json(epi);
+      res.json(prestador);
     }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error });
+  }
+});
+
+router.get('/nome/:nome', async (req, res) => {
+  try {
+    const { nome } = req.params;
+
+    const prestadores = await PrestadorService.getByName(nome);
+    res.json(prestadores);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -59,7 +66,7 @@ router.delete('/:id', async (req, res) => {
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       res.status(400).json({ message: 'Id inválido!' });
     }
-    await EpiService.delete(_id);
+    await PrestadorService.delete(_id);
     res.status(204).send();
   } catch (error) {
     console.log(error);
@@ -70,20 +77,15 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const {
-      nome,
-      categoria,
-      ca,
-      tipo,
-      qtdMinima,
-      qtdAtual,
+      nome, cnpj, endereco, telefone, email,
     } = req.body;
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       res.status(400).json({ message: 'Id inválido!' });
     }
-    const epi = await EpiService.update(_id, nome, categoria, ca, tipo, qtdMinima, qtdAtual);
-    res.json(epi);
+    const prestador = await PrestadorService.update(_id, nome, cnpj, endereco, telefone, email);
+    res.json(prestador);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });

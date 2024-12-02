@@ -1,22 +1,13 @@
 /* eslint-disable no-console */
 import { Router } from 'express';
-import EpiService from 'src/services/epi.js';
+import ServicoService from 'src/services/servico.js';
 
 const router = Router();
-
 router.post('/', async (req, res) => {
   try {
-    const {
-      nome,
-      categoria,
-      ca,
-      tipo,
-      qtdMinima,
-      qtdAtual,
-    } = req.body;
-
-    const epi = await EpiService.insert(nome, categoria, ca, tipo, qtdMinima, qtdAtual);
-    res.status(201).json(epi);
+    const { nome, categoria } = req.body;
+    const servico = await ServicoService.insert(nome, categoria);
+    res.status(201).json(servico);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -25,8 +16,8 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const epis = await EpiService.getAll();
-    res.json(epis);
+    const servico = await ServicoService.getAll();
+    res.json(servico);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -40,11 +31,11 @@ router.get('/:id', async (req, res) => {
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       res.status(400).json({ message: 'Id inválido!' });
     }
-    const epi = await EpiService.getById(_id);
-    if (!epi) {
+    const servico = await ServicoService.getById(_id);
+    if (!servico) {
       res.status(404).send();
     } else {
-      res.json(epi);
+      res.json(servico);
     }
   } catch (error) {
     console.log(error);
@@ -59,7 +50,7 @@ router.delete('/:id', async (req, res) => {
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       res.status(400).json({ message: 'Id inválido!' });
     }
-    await EpiService.delete(_id);
+    await ServicoService.delete(_id);
     res.status(204).send();
   } catch (error) {
     console.log(error);
@@ -69,21 +60,14 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const {
-      nome,
-      categoria,
-      ca,
-      tipo,
-      qtdMinima,
-      qtdAtual,
-    } = req.body;
+    const { nome, categoria } = req.body;
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       res.status(400).json({ message: 'Id inválido!' });
     }
-    const epi = await EpiService.update(_id, nome, categoria, ca, tipo, qtdMinima, qtdAtual);
-    res.json(epi);
+    const servico = await ServicoService.update(_id, nome, categoria);
+    res.json(servico);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
