@@ -36,7 +36,11 @@ router.get('/:id', async (req, res) => {
       res.status(400).json({ message: 'Id inválido!' });
     }
     const cliente = await ClienteService.getById(_id);
-    res.json(cliente);
+    if (!cliente) {
+      res.status(404).send();
+    } else {
+      res.json(cliente);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
