@@ -2,6 +2,8 @@ Repositório criado para Projeto Integrador do curso de Formação Acelerada em 
 
 Após clonar repositório : 
 
+Versão do Node: v22
+
 - npm install (instalar as dependências)
 - criar arquivo .env na pasta raiz (olhar descrição do grupo whatsapp)
 - npx prisma migrate deploy (inicializar o banco de daddos localmente) 

@@ -1,0 +1,21 @@
+GET http://localhost:3000/servico 
+###
+GET http://localhost:3000/servico/1
+###
+POST http://localhost:3000/servico/
+Content-Type: application/json
+
+{
+    "nome" : "Servico Novo",
+    "categoria": "Categoria 0"
+}
+###
+DELETE http://localhost:3000/servico/2
+###
+PUT http://localhost:3000/servico/1
+Content-Type: application/json
+
+{
+    "nome" : "Pintura",
+    "categoria": "Categoria 3"
+}
