@@ -1,9 +1,22 @@
+/* eslint-disable camelcase */
 import MaterialRepository from 'src/repositories/material.js';
 
 export default class MaterialService {
-  static async insert(nome: string, categoria: string, unidade_medida: string, quantidade_minima: number, quantidade_atual: number) {
+  static async insert(
+    nome: string,
+    categoria: string,
+    unidade_medida: string,
+    quantidade_minima: number,
+    quantidade_atual: number,
+  ) {
     // TODO: Fazer validação dos campos
-    const material = await MaterialRepository.insert(nome, categoria, unidade_medida, quantidade_minima, quantidade_atual);
+    const material = await MaterialRepository.insert(
+      nome,
+      categoria,
+      unidade_medida,
+      quantidade_minima,
+      quantidade_atual,
+    );
     return material;
   }
 
@@ -26,10 +39,22 @@ export default class MaterialService {
     await MaterialRepository.deleteById(id);
   }
 
-  static async update(id: number, nome: string, categoria: string, unidade_medida: string, quantidade_minima: number, quantidade_atual: number) {
+  static async update(
+    id: number,
+    nome: string,
+    categoria: string,
+    unidade_medida: string,
+    quantidade_minima: number,
+    quantidade_atual: number,
+  ) {
     const material = await MaterialRepository.update({
-      id, nome, categoria, unidade_medida, quantidade_minima, quantidade_atual
+      id, nome, categoria, unidade_medida, quantidade_minima, quantidade_atual,
     });
     return material;
+  }
+
+  static async checarQuantidadeMinima() {
+    const materiais = await MaterialRepository.checarQuantidadeMinima();
+    return materiais;
   }
 }

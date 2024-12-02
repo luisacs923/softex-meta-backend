@@ -1,8 +1,19 @@
+/* eslint-disable camelcase */
 import prisma from 'src/db/index.js';
 
 export default class MaterialRepository {
-  static async insert(nome: string, categoria: string, unidade_medida: string, quantidade_minima: number, quantidade_atual: number) {
-    return prisma.material.create({ data: { nome, categoria, unidade_medida, quantidade_minima, quantidade_atual } });
+  static async insert(
+    nome: string,
+    categoria: string,
+    unidade_medida: string,
+    quantidade_minima: number,
+    quantidade_atual: number,
+  ) {
+    return prisma.material.create({
+      data: {
+        nome, categoria, unidade_medida, quantidade_minima, quantidade_atual,
+      },
+    });
   }
 
   static async getByName(nome: string) {
@@ -21,7 +32,8 @@ export default class MaterialRepository {
     return prisma.material.delete({ where: { id } });
   }
 
-  static async update(material: {id: number, nome: string, categoria: string, unidade_medida: string, quantidade_minima: number, quantidade_atual: number}) {
+  static async update(material: {id: number, nome: string, categoria: string,
+    unidade_medida: string, quantidade_minima: number, quantidade_atual: number}) {
     return prisma.material.update({
       where: {
         id: material.id,
@@ -32,6 +44,27 @@ export default class MaterialRepository {
         unidade_medida: material.unidade_medida,
         quantidade_minima: material.quantidade_minima,
         quantidade_atual: material.quantidade_atual,
+      },
+    });
+  }
+
+  static async updateEstoque(material: {id: number, quantidade_atual: number}) {
+    return prisma.material.update({
+      where: {
+        id: material.id,
+      },
+      data: {
+        quantidade_atual: material.quantidade_atual,
+      },
+    });
+  }
+
+  static async checarQuantidadeMinima() {
+    return prisma.material.findMany({
+      where: {
+        quantidade_atual: {
+          lt: prisma.material.fields.quantidade_minima,
+        },
       },
     });
   }

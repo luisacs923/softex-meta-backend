@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-console */
 import { Router } from 'express';
 import MaterialService from 'src/services/material.js';
@@ -28,6 +29,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/quantidade-minima/', async (req, res) => {
+  try {
+    const materiais = await MaterialService.checarQuantidadeMinima();
+    res.json(materiais);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -42,7 +53,7 @@ router.get('/:id', async (req, res) => {
     return res.json(material);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 });
 
@@ -71,7 +82,14 @@ router.put('/:id', async (req, res) => {
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       return res.status(400).json({ message: 'Id inválido!' });
     }
-    const material = await MaterialService.update(_id, nome, categoria, unidade_medida, quantidade_minima, quantidade_atual);
+    const material = await MaterialService.update(
+      _id,
+      nome,
+      categoria,
+      unidade_medida,
+      quantidade_minima,
+      quantidade_atual,
+    );
     return res.json(material);
   } catch (error) {
     console.log(error);
