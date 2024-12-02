@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Router } from 'express';
 import MaterialService from 'src/services/material.js';
 
@@ -5,7 +6,9 @@ const router = Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { nome, categoria, unidade_medida, quantidade_minima, quantidade_atual } = req.body;
+    const {
+      nome, categoria, unidade_medida, quantidade_minima, quantidade_atual,
+    } = req.body;
 
     const material = await MaterialService.insert(nome, categoria, unidade_medida, quantidade_minima, quantidade_atual);
     res.status(201).json(material);
@@ -33,7 +36,11 @@ router.get('/:id', async (req, res) => {
       res.status(400).json({ message: 'Id inválido!' });
     }
     const material = await MaterialService.getById(_id);
-    res.json(material);
+    if (!material) {
+      res.status(404).send();
+    } else {
+      res.json(material);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -57,13 +64,15 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const { nome, categoria, unidade_medida, quantidade_minima, quantidade_atual } = req.body;
+    const {
+      nome, categoria, unidade_medida, quantidade_minima, quantidade_atual,
+    } = req.body;
     const { id } = req.params;
     const _id = Number(id);
     if (Number.isNaN(_id) || !Number.isInteger(_id)) {
       res.status(400).json({ message: 'Id inválido!' });
     }
-    const material = await MaterialService.update(_id, nome, categoria, unidade_medida, quantidade_minima, quantidade_atual );
+    const material = await MaterialService.update(_id, nome, categoria, unidade_medida, quantidade_minima, quantidade_atual);
     res.json(material);
   } catch (error) {
     console.log(error);
