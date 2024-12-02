@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import { Router } from 'express';
-import ServicoService from 'src/services/Servico.js';
+import ServicoService from 'src/services/servico.js';
 
 const router = Router();
 router.post('/', async (req, res) => {
@@ -12,6 +13,7 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: error });
   }
 });
+
 router.get('/', async (req, res) => {
   try {
     const servico = await ServicoService.getAll();
@@ -21,6 +23,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: error });
   }
 });
+
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -29,12 +32,17 @@ router.get('/:id', async (req, res) => {
       res.status(400).json({ message: 'Id inválido!' });
     }
     const servico = await ServicoService.getById(_id);
-    res.json(servico);
+    if (!servico) {
+      res.status(404).send();
+    } else {
+      res.json(servico);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
   }
 });
+
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -49,6 +57,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: error });
   }
 });
+
 router.put('/:id', async (req, res) => {
   try {
     const { nome, categoria } = req.body;
