@@ -41,7 +41,11 @@ router.get('/:id', async (req, res) => {
       res.status(400).json({ message: 'Id inválido!' });
     }
     const epi = await EpiService.getById(_id);
-    res.json(epi);
+    if (!epi) {
+      res.status(404).send();
+    } else {
+      res.json(epi);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
