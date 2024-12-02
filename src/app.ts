@@ -40,6 +40,7 @@ const start = async () => {
   app.use(bodyParser.json());
   app.use('/colaborador', ColaboradorController);
   app.use('/epi', EpiController);
+
   app.listen(port, () => {
     console.log(`AdminJS available at http://localhost:${port}${admin.options.rootPath}`);
   });

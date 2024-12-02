@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Router } from 'express';
 import EpiService from 'src/services/epi.js';
 
@@ -11,8 +12,7 @@ router.post('/', async (req, res) => {
       ca,
       tipo,
       qtdMinima,
-      // eslint-disable-next-line comma-dangle
-      qtdAtual
+      qtdAtual,
     } = req.body;
 
     const epi = await EpiService.insert(nome, categoria, ca, tipo, qtdMinima, qtdAtual);
@@ -71,8 +71,7 @@ router.put('/:id', async (req, res) => {
       ca,
       tipo,
       qtdMinima,
-      // eslint-disable-next-line comma-dangle
-      qtdAtual
+      qtdAtual,
     } = req.body;
     const { id } = req.params;
     const _id = Number(id);

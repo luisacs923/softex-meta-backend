@@ -7,8 +7,7 @@ export default class EpiService {
     ca: string,
     tipo: string,
     qtdMinima: number,
-    // eslint-disable-next-line comma-dangle
-    qtdAtual: number
+    qtdAtual: number,
   ) {
     // TODO: Fazer validação dos campos
     const epi = await EpiRepository.insert(nome, categoria, ca, tipo, qtdMinima, qtdAtual);
@@ -41,8 +40,7 @@ export default class EpiService {
     ca: string,
     tipo: string,
     qtdMinima: number,
-    // eslint-disable-next-line comma-dangle
-    qtdAtual: number
+    qtdAtual: number,
   ) {
     const epi = await EpiRepository.update({
       id,
@@ -51,8 +49,7 @@ export default class EpiService {
       ca,
       tipo,
       qtdMinima,
-      // eslint-disable-next-line comma-dangle
-      qtdAtual
+      qtdAtual,
     });
     return epi;
   }

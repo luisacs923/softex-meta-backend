@@ -7,8 +7,7 @@ export default class EpiRepository {
     ca: string,
     tipo: string,
     qtdMinima: number,
-    // eslint-disable-next-line comma-dangle
-    qtdAtual: number
+    qtdAtual: number,
   ) {
     return prisma.ePI.create({
       data: {
@@ -17,8 +16,7 @@ export default class EpiRepository {
         ca,
         tipo,
         qtdMinima,
-        // eslint-disable-next-line comma-dangle
-        qtdAtual
+        qtdAtual,
       },
     });
   }
@@ -58,8 +56,7 @@ export default class EpiRepository {
         ca: epi.ca,
         tipo: epi.tipo,
         qtdMinima: epi.qtdMinima,
-        // eslint-disable-next-line comma-dangle
-        qtdAtual: epi.qtdAtual
+        qtdAtual: epi.qtdAtual,
       },
     });
   }
