@@ -5,6 +5,7 @@ import { buildAuthenticatedRouter } from '@adminjs/express';
 
 import ColaboradorController from './controllers/colaborador.js';
 import EpiController from './controllers/epi.js';
+import ClienteController from './controllers/cliente.js';
 import provider from './admin/auth-provider.js';
 import options from './admin/options.js';
 
@@ -40,8 +41,10 @@ const start = async () => {
   app.use(bodyParser.json());
   app.use('/colaborador', ColaboradorController);
   app.use('/epi', EpiController);
+  app.use('/cliente', ClienteController);
 
   app.listen(port, () => {
+    // eslint-disable-next-line no-console
     console.log(`AdminJS available at http://localhost:${port}${admin.options.rootPath}`);
   });
 };
