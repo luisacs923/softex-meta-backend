@@ -61,4 +61,25 @@ export default class EpiRepository {
       },
     });
   }
+
+  static async updateEstoque(epi: {id: number, qtdAtual: number}) {
+    return prisma.ePI.update({
+      where: {
+        id: epi.id,
+      },
+      data: {
+        qtdAtual: epi.qtdAtual,
+      },
+    });
+  }
+
+  static async checarQuantidadeMinima() {
+    return prisma.ePI.findMany({
+      where: {
+        qtdAtual: {
+          lt: prisma.ePI.fields.qtdMinima,
+        },
+      },
+    });
+  }
 }

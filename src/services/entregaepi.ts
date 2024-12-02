@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable comma-dangle */
 import EntregaEpiRepository from 'src/repositories/entregaepi.js';
+import EpiRepository from 'src/repositories/epi.js';
 
 export default class EntregaEpiService {
   static async insert(
@@ -10,14 +11,18 @@ export default class EntregaEpiService {
     id_epi: number,
     id_colaborador: number
   ) {
-    const entregaEpi = await EntregaEpiRepository.insert(
-      data_entrega,
-      data_devolucao,
-      observacao,
-      id_epi,
-      id_colaborador
-    );
-    return entregaEpi;
+    const epi = await EpiRepository.getById(id_epi);
+    if (epi.qtdAtual >= 1) {
+      const entregaEpi = await EntregaEpiRepository.insert(
+        data_entrega,
+        data_devolucao,
+        observacao,
+        id_epi,
+        id_colaborador
+      );
+      await EpiRepository.updateEstoque({ id: id_epi, qtdAtual: (epi.qtdAtual - 1) });
+      return entregaEpi;
+    } throw new Error('O Epi não possui estoque suficiente!');
   }
 
   static async getAll() {

@@ -1,0 +1,37 @@
+GET http://localhost:3000/material-contrato 
+###
+GET http://localhost:3000/material-contrato/1
+###
+GET http://localhost:3000/material-contrato/material/1
+###
+GET http://localhost:3000/material-contrato/contract/1
+###
+POST http://localhost:3000/material-contrato
+Content-Type: application/json
+
+{
+    "quantidade_solicitada" : 10,
+    "quantidade_utilizada" : null,
+    "quantidade_devolvida": null,
+    "data_entrega": "2024/11/13",
+    "data_devolução": null,
+    "observacao": "O material foi entregue com embalagem lacrada",
+    "id_contrato_geral": 1,
+    "id_material": 1,
+}
+###
+DELETE http://localhost:3000/material-contrato/2
+###
+PUT http://localhost:3000/cmaterial-contrato/1
+Content-Type: application/json
+
+{
+    "quantidade_solicitada" : 10,
+    "quantidade_utilizada" : 10,
+    "quantidade_devolvida": 0,
+    "data_entrega": "2024/11/13",
+    "data_devolução": "2024/11/24",
+    "observacao": "O material foi entregue com embalagem lacrada",
+    "id_contrato_geral": 1,
+    "id_material": 1,
+}

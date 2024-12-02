@@ -2,6 +2,8 @@ GET http://localhost:3000/material
 ###
 GET http://localhost:3000/material/1
 ###
+GET http://localhost:3000/material/quantidade-minima/
+###
 POST http://localhost:3000/material/
 Content-Type: application/json
 
@@ -11,8 +13,6 @@ Content-Type: application/json
     "unidade_medida": "um par",
     "quantidade_minima": 1,
     "quantidade_atual": 3
-    
-    
 }
 ###
 DELETE http://localhost:3000/material/2
@@ -25,5 +25,5 @@ Content-Type: application/json
     "categoria" : "EPI",
     "unidade_medida": "um par",
     "quantidade_minima": 10,
-    "quantidade_atual": 15
+    "quantidade_atual": 8
 }
