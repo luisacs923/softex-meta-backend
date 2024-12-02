@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Router } from 'express';
 import PrestadorService from 'src/services/prestador.js';
 
@@ -35,7 +36,11 @@ router.get('/:id', async (req, res) => {
       res.status(400).json({ message: 'Id inválido!' });
     }
     const prestador = await PrestadorService.getById(_id);
-    res.json(prestador);
+    if (!prestador) {
+      res.status(404).send();
+    } else {
+      res.json(prestador);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -45,9 +50,7 @@ router.get('/:id', async (req, res) => {
 router.get('/nome/:nome', async (req, res) => {
   try {
     const { nome } = req.params;
-    if (!String(nome)) {
-      res.status(400).json({ message: 'Nome inválido!' });
-    }
+
     const prestadores = await PrestadorService.getByName(nome);
     res.json(prestadores);
   } catch (error) {
